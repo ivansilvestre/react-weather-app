@@ -10,3 +10,14 @@ body {
   letter-spacing: 0.2em;
   font-size: 0.8em;
 }
+
+.img-weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 10rem;
+  height: 10rem;
+}
