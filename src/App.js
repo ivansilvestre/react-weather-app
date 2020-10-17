@@ -9,22 +9,36 @@ const api = {
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState(null);
+  const [icon, setIcon] = useState('');
+  const [iconSource, setIconSource] = useState('');
 
   const search = ev => {
     if (ev.key === 'Enter') {
-      fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
-        .then(res => res.json())
-        .then(result => {
-          setWeather(result);
-          setQuery('');
-        });
+      if (query !== '') {
+        fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
+          .then(res => res.json())
+          .then(result => {
+            if (result.cod !== '200') {
+              console.log(`${result.cod} Error`)
+              alert('Problem out there... try again!')
+            }
+            else {
+              setWeather(result);
+              setQuery('');
+              setIcon(result.list[4].weather[0].icon);
+              setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+            }
+          });
+      }
+      else {
+        alert('Please insert some value...')
+      }
     }
   }
 
   return (
     <main>
       <div className="container my-5 mx-auto">
-
         <h1 className="text-muted text-center my-4">Weather App</h1>
         <div
           className="change-location my-4 text-center text-muted">
@@ -35,13 +49,15 @@ function App() {
             onChange={e => setQuery(e.target.value)}
             value={query}
             onKeyPress={search}
-            autoFocus
-          />
+            autoFocus />
           <button className="btn btn-primary btn-block mt-2">Get Weather</button>
         </div>
         {weather ? (
           <div>
             <div className="card shadow-lg rounded">
+              <div className="img-weather">
+                <img src={iconSource} alt='weather-img' />
+              </div>
               <div className="text-muted text-uppercase text-center details">
                 <h5 className="my-2">City: {weather.city.name} </h5>
                 <div className="display-4 my-3">
@@ -50,7 +66,6 @@ function App() {
                 </div>
                 <div className="my-2">{weather.list[4].weather[0].description}</div>
               </div>
-
               <div className="text-muted text-uppercase text-center details">
                 <div className="d-flex bd-highlight">
                   <div className="p-2 flex-fill bd-highlight">
@@ -71,11 +86,9 @@ function App() {
               </div>
             </div>
           </div>
-
         ) : ('')}
       </div>
     </main>
   );
 }
-
 export default App;
