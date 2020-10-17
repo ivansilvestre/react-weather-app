@@ -8,7 +8,7 @@ const api = {
 
 function App() {
   const [query, setQuery] = useState('');
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState(null);
 
   const search = ev => {
     if (ev.key === 'Enter') {
@@ -17,7 +17,6 @@ function App() {
         .then(result => {
           setWeather(result);
           setQuery('');
-          console.log(result)
         });
     }
   }
@@ -40,8 +39,7 @@ function App() {
           />
           <button className="btn btn-primary btn-block mt-2">Get Weather</button>
         </div>
-
-        {(typeof weather.main != 'undefined') ? (
+        {weather ? (
           <div>
             <div className="card shadow-lg rounded">
               <div className="text-muted text-uppercase text-center details">
@@ -58,14 +56,14 @@ function App() {
                   <div className="p-2 flex-fill bd-highlight">
                     <div>Tomorrow</div>
                     <div className="display-6 my-2">
-                      <span> {weather.list[12].main.temp}</span>
+                      <span> {Math.round(weather.list[12].main.temp)}</span>
                       <span>&deg;C</span>
                     </div>
                   </div>
                   <div className="p-2 flex-fill bd-highlight">
                     <div>After Tomorrow</div>
-                    <div class="display-6 my-2">
-                      <span> {weather.list[20].main.temp}</span>
+                    <div className="display-6 my-2">
+                      <span> {Math.round(weather.list[20].main.temp)}</span>
                       <span>&deg;C</span>
                     </div>
                   </div>
