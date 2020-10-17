@@ -10,7 +10,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState(null);
   const [iconSource, setIconSource] = useState('');
-  let isClicked = false;
+  let [isClicked] = useState(false);
 
   const search = ev => {
     if (isClicked || ev.key === 'Enter') {
@@ -36,7 +36,7 @@ function App() {
     }
   }
 
-  const clicked = () => {
+  const setIsClick = () => {
     isClicked = true;
     search();
   };
@@ -55,7 +55,7 @@ function App() {
             value={query}
             onKeyPress={search}
             autoFocus />
-          <button className="btn btn-primary btn-block mt-2" onClick={clicked.bind(this)}>Get Weather</button>
+          <button className="btn btn-primary btn-block mt-2" onClick={setIsClick}>Get Weather</button>
         </div>
         {weather ? (
           <div>
