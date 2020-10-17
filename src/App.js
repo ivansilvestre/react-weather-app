@@ -9,11 +9,11 @@ const api = {
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState(null);
-  const [icon, setIcon] = useState('');
   const [iconSource, setIconSource] = useState('');
+  let isClicked = false;
 
   const search = ev => {
-    if (ev.key === 'Enter') {
+    if (isClicked || ev.key === 'Enter') {
       if (query !== '') {
         fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
           .then(res => res.json())
@@ -25,7 +25,7 @@ function App() {
             else {
               setWeather(result);
               setQuery('');
-              setIcon(result.list[4].weather[0].icon);
+              let icon = result.list[4].weather[0].icon;
               setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
             }
           });
@@ -35,6 +35,11 @@ function App() {
       }
     }
   }
+
+  const clicked = () => {
+    isClicked = true;
+    search();
+  };
 
   return (
     <main>
@@ -50,7 +55,7 @@ function App() {
             value={query}
             onKeyPress={search}
             autoFocus />
-          <button className="btn btn-primary btn-block mt-2">Get Weather</button>
+          <button className="btn btn-primary btn-block mt-2" onClick={clicked.bind(this)}>Get Weather</button>
         </div>
         {weather ? (
           <div>
