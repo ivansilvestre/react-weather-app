@@ -1,39 +1,35 @@
-import React, { useState } from 'react';
-
-const api = {
-  key: 'a20533974552cd247ba71e4e06c33774',
-  base: 'https://api.openweathermap.org/data/2.5/'
-}
+import React, { useState } from "react";
+import InputBox from "./components/InputBox";
+import SearchButton from "./components/SearchButton";
+import { api } from "./utils/variables";
 
 function App() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [weather, setWeather] = useState(null);
-  const [iconSource, setIconSource] = useState('');
+  const [iconSource, setIconSource] = useState("");
   let [isClicked] = useState(false);
 
-  const search = ev => {
-    if (isClicked || ev.key === 'Enter') {
-      if (query !== '') {
+  const search = (ev) => {
+    if (isClicked || ev.key === "Enter") {
+      if (query !== "") {
         fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
-          .then(res => res.json())
-          .then(result => {
-            if (result.cod !== '200') {
-              console.log(`${result.cod} Error`)
-              alert('Problem out there... try again!')
-            }
-            else {
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.cod !== "200") {
+              console.log(`${result.cod} Error`);
+              alert("Problem out there... try again!");
+            } else {
               setWeather(result);
-              setQuery('');
+              setQuery("");
               let icon = result.list[4].weather[0].icon;
               setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
             }
           });
-      }
-      else {
-        alert('Please insert some value...')
+      } else {
+        alert("Please insert some value...");
       }
     }
-  }
+  };
 
   const setIsClick = () => {
     isClicked = true;
@@ -44,23 +40,21 @@ function App() {
     <main>
       <div className="container my-5 mx-auto">
         <h1 className="text-muted text-center my-4">Weather App</h1>
-        <div
-          className="change-location my-4 text-center text-muted">
-          <input
+        <div className="search-location my-4 mx-auto text-center text-muted">
+          <InputBox
             type="text"
             placeholder="City Name"
-            className="form-control p-4 my-2"
-            onChange={e => setQuery(e.target.value)}
+            handleChange={(e) => setQuery(e.target.value)}
             value={query}
-            onKeyPress={search}
-            autoFocus />
-          <button className="btn btn-primary btn-block mt-2" onClick={setIsClick}>Get Weather</button>
+            handlePress={search}
+          />
+          <SearchButton handleClick={setIsClick}>Get Weather</SearchButton>
         </div>
-        {weather ? (
+        {weather && (
           <div>
             <div className="card shadow-lg rounded">
               <div className="img-weather">
-                <img src={iconSource} alt='weather-img' />
+                <img src={iconSource} alt="weather-img" />
               </div>
               <div className="text-muted text-uppercase text-center details">
                 <h5 className="my-2">City: {weather.city.name} </h5>
@@ -68,7 +62,9 @@ function App() {
                   <span> {Math.round(weather.list[4].main.temp)}</span>
                   <span>&deg;C</span>
                 </div>
-                <div className="my-2">{weather.list[4].weather[0].description}</div>
+                <div className="my-2">
+                  {weather.list[4].weather[0].description}
+                </div>
               </div>
               <div className="text-muted text-uppercase text-center details">
                 <div className="d-flex bd-highlight">
@@ -90,9 +86,10 @@ function App() {
               </div>
             </div>
           </div>
-        ) : ('')}
+        )}
       </div>
     </main>
   );
 }
+
 export default App;

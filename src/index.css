@@ -11,6 +11,10 @@ body {
   font-size: 0.8em;
 }
 
+.search-location {
+  max-width: 500px;
+}
+
 .img-weather {
   display: flex;
   justify-content: center;
