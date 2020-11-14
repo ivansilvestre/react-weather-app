@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputBox from "./components/InputBox";
 import SearchButton from "./components/SearchButton";
+import Card from "./components/card/Card";
 import { api } from "./utils/variables";
 
 function App() {
@@ -52,39 +53,14 @@ function App() {
         </div>
         {weather && (
           <div>
-            <div className="card shadow-lg rounded">
-              <div className="img-weather">
-                <img src={iconSource} alt="weather-img" />
-              </div>
-              <div className="text-muted text-uppercase text-center details">
-                <h5 className="my-2">City: {weather.city.name} </h5>
-                <div className="display-4 my-3">
-                  <span> {Math.round(weather.list[4].main.temp)}</span>
-                  <span>&deg;C</span>
-                </div>
-                <div className="my-2">
-                  {weather.list[4].weather[0].description}
-                </div>
-              </div>
-              <div className="text-muted text-uppercase text-center details">
-                <div className="d-flex bd-highlight">
-                  <div className="p-2 flex-fill bd-highlight">
-                    <div>Tomorrow</div>
-                    <div className="display-6 my-2">
-                      <span> {Math.round(weather.list[12].main.temp)}</span>
-                      <span>&deg;C</span>
-                    </div>
-                  </div>
-                  <div className="p-2 flex-fill bd-highlight">
-                    <div>After Tomorrow</div>
-                    <div className="display-6 my-2">
-                      <span> {Math.round(weather.list[20].main.temp)}</span>
-                      <span>&deg;C</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Card
+              img={iconSource}
+              mainCity={weather.city.name}
+              mainWeather={Math.round(weather.list[4].main.temp)}
+              description={weather.list[4].weather[0].description}
+              tomorrow={Math.round(weather.list[12].main.temp)}
+              afterTomorrow={Math.round(weather.list[20].main.temp)}
+            />
           </div>
         )}
       </div>
