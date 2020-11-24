@@ -8,7 +8,6 @@ const InputBox = (props) => {
       className="form-control p-4 my-2"
       onChange={props.handleChange}
       value={props.value}
-      onKeyPress={props.handlePress}
       autoFocus
     />
   );

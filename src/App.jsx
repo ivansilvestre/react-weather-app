@@ -8,33 +8,25 @@ function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState(null);
   const [iconSource, setIconSource] = useState("");
-  let [isClicked] = useState(false);
 
-  const search = (ev) => {
-    if (isClicked || ev.key === "Enter") {
-      if (query !== "") {
-        fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
-          .then((res) => res.json())
-          .then((result) => {
-            if (result.cod !== "200") {
-              console.log(`${result.cod} Error`);
-              alert("Problem out there... try again!");
-            } else {
-              setWeather(result);
-              setQuery("");
-              let icon = result.list[4].weather[0].icon;
-              setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
-            }
-          });
-      } else {
-        alert("Please insert some value...");
-      }
+  const search = () => {
+    if (query !== "") {
+      fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.cod !== "200") {
+            console.log(`${result.cod} Error`);
+            alert("Problem out there... try again!");
+          } else {
+            setWeather(result);
+            setQuery("");
+            let icon = result.list[4].weather[0].icon;
+            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+          }
+        });
+    } else {
+      alert("Please insert some city...");
     }
-  };
-
-  const setIsClick = () => {
-    isClicked = true;
-    search();
   };
 
   return (
@@ -47,9 +39,8 @@ function App() {
             placeholder="City Name"
             handleChange={(e) => setQuery(e.target.value)}
             value={query}
-            handlePress={search}
           />
-          <SearchButton handleClick={setIsClick}>Get Weather</SearchButton>
+          <SearchButton onClick={search}>Get Weather</SearchButton>
         </div>
         {weather && (
           <div>
