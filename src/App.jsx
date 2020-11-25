@@ -31,29 +31,31 @@ function App() {
 
   return (
     <main>
-      <div className="container my-5 mx-auto">
-        <h1 className="text-muted text-center my-4">Weather App</h1>
-        <div className="search-location my-4 mx-auto text-center text-muted">
-          <InputBox
-            type="text"
-            placeholder="City Name"
-            handleChange={(e) => setQuery(e.target.value)}
-            value={query}
-          />
-          <SearchButton onClick={search}>Get Weather</SearchButton>
-        </div>
-        {weather && (
-          <div>
-            <Card
-              img={iconSource}
-              mainCity={weather.city.name}
-              mainWeather={Math.round(weather.list[4].main.temp)}
-              description={weather.list[4].weather[0].description}
-              tomorrow={Math.round(weather.list[12].main.temp)}
-              afterTomorrow={Math.round(weather.list[20].main.temp)}
+      <div className="container">
+        <div className="d-flex flex-column">
+          <h1 className="text-center text-muted my-4">Weather App</h1>
+          <div className="text-center text-muted my-4 mx-auto">
+            <InputBox
+              type="text"
+              placeholder="City Name"
+              handleChange={(e) => setQuery(e.target.value)}
+              value={query}
             />
+            <SearchButton onClick={search}>Get Weather</SearchButton>
           </div>
-        )}
+          {weather && (
+            <div>
+              <Card
+                img={iconSource}
+                mainCity={weather.city.name}
+                mainWeather={Math.round(weather.list[4].main.temp)}
+                description={weather.list[4].weather[0].description}
+                tomorrow={Math.round(weather.list[12].main.temp)}
+                afterTomorrow={Math.round(weather.list[20].main.temp)}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
