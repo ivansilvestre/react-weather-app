@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { api } from "./api";
 import InputBox from "./components/InputBox";
 import SearchButton from "./components/SearchButton";
 import Card from "./components/card/Card";
-import { api } from "./utils/variables";
 
-function App() {
+const App = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState(null);
   const [iconSource, setIconSource] = useState("");
@@ -18,9 +18,9 @@ function App() {
             console.log(`${result.cod} Error`);
             alert("Problem out there... try again!");
           } else {
+            const icon = result.list[4].weather[0].icon;
             setWeather(result);
             setQuery("");
-            let icon = result.list[4].weather[0].icon;
             setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
           }
         });
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <main>
-      <div className="container">
+      <div className="container" style={{ maxWidth: "600px" }}>
         <div className="d-flex flex-column">
           <h1 className="text-center text-muted my-4">Weather App</h1>
           <div className="text-center text-muted my-4 mx-auto">
@@ -59,6 +59,6 @@ function App() {
       </div>
     </main>
   );
-}
+};
 
 export default App;
