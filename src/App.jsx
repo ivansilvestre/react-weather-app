@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { api } from "./api";
 import InputBox from "./components/InputBox";
 import SearchButton from "./components/SearchButton";
 import Card from "./components/card/Card";
@@ -11,7 +10,7 @@ const App = () => {
 
   const search = () => {
     if (query !== "") {
-      fetch(`${api.base}forecast?q=${query}&units=metric&appid=${api.key}`)
+      fetch(`${process.env.REACT_APP_URL}forecast?q=${query}&units=metric&appid=${process.env.REACT_APP_KEY}`)
         .then((res) => res.json())
         .then((result) => {
           if (result.cod !== "200") {
