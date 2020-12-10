@@ -10,7 +10,7 @@ const App = () => {
 
   const search = () => {
     if (query !== "") {
-      fetch(`${process.env.REACT_APP_URL}forecast?q=${query}&units=metric&appid=${process.env.REACT_APP_KEY}`)
+      fetch(`${process.env.REACT_APP_API_URL}forecast?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
         .then((res) => res.json())
         .then((result) => {
           if (result.cod !== "200") {
