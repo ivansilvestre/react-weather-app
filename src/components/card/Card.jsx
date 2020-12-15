@@ -1,6 +1,5 @@
 import React from "react";
 import MainCard from "./MainCard";
-import SecondaryCard from "./SecondaryCard";
 
 const Card = (props) => {
   return (
@@ -11,12 +10,6 @@ const Card = (props) => {
         mainWeather={props.mainWeather}
         description={props.description}
       />
-      <div className="text-muted text-uppercase text-center details">
-        <div className="d-flex bd-highlight">
-          <SecondaryCard name={"Tomorrow"} day={props.tomorrow} />
-          <SecondaryCard name={"After Tomorrow"} day={props.afterTomorrow} />
-        </div>
-      </div>
     </div>
   );
 };

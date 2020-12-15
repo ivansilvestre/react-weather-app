@@ -7,9 +7,9 @@ const MainCard = (props) => {
         <img src={props.img} alt="weather-img" />
       </div>
       <div className="text-muted text-uppercase text-center details">
-        <h5 className="my-2">City: {props.mainCity} </h5>
+        <h5 className="my-2">City: {props.city} </h5>
         <div className="display-4 my-3">
-          <span> {props.mainWeather}</span>
+          <span> {props.weather}</span>
           <span>&deg;C</span>
         </div>
         <div className="my-2">{props.description}</div>

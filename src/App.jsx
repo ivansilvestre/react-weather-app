@@ -10,18 +10,17 @@ const App = () => {
 
   const search = () => {
     if (query !== "") {
-      fetch(`${process.env.REACT_APP_API_URL}forecast?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+      fetch(`${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
         .then((res) => res.json())
         .then((result) => {
           if (result.cod !== "200") {
-            console.log(`${result.cod} Error`);
+            console.log(`${result.cod}`);
             alert("Problem out there... try again!");
           } else {
-            const icon = result.list[4].weather[0].icon;
             setWeather(result);
-            setQuery("");
-            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
-          }
+            setQuery("");   
+            const icon = result.weather[0].icon;
+            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);}
         });
     } else {
       alert("Please insert some city...");
@@ -46,11 +45,9 @@ const App = () => {
             <div>
               <Card
                 img={iconSource}
-                mainCity={weather.city.name}
-                mainWeather={Math.round(weather.list[4].main.temp)}
-                description={weather.list[4].weather[0].description}
-                tomorrow={Math.round(weather.list[12].main.temp)}
-                afterTomorrow={Math.round(weather.list[20].main.temp)}
+                city={weather.name}
+                weather={Math.round(weather.main.temp)}
+                description={weather.weather[0].main}
               />
             </div>
           )}
