@@ -9,7 +9,7 @@ const App = () => {
   const [iconSource, setIconSource] = useState("");
 
   const search = () => {
-    if (query !== " ") {
+    if (query !== "") {
       fetch(
         `${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
       )
