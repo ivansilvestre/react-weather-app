@@ -17,7 +17,9 @@ const App = () => {
         .then((result) => {
           if (result.cod !== 200) {
             console.log(`${result.cod} Error`);
-            alert("Problem out there... try again later!");
+            alert(
+              "Problem out there... try again later or try to insert a valid city!"
+            );
           } else {
             const icon = result.weather[0].icon;
             console.log(result);
