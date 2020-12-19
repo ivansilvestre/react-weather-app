@@ -9,18 +9,22 @@ const App = () => {
   const [iconSource, setIconSource] = useState("");
 
   const search = () => {
-    if (query !== "") {
-      fetch(`${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+    if (query !== " ") {
+      fetch(
+        `${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+      )
         .then((res) => res.json())
         .then((result) => {
-          if (result.cod !== "200") {
-            console.log(`${result.cod}`);
-            alert("Problem out there... try again!");
+          if (result.cod !== 200) {
+            console.log(`${result.cod} Error`);
+            alert("Problem out there... try again later!");
           } else {
-            setWeather(result);
-            setQuery("");   
             const icon = result.weather[0].icon;
-            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);}
+            console.log(result);
+            setWeather(result);
+            setQuery("");
+            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+          }
         });
     } else {
       alert("Please insert some city...");
@@ -47,7 +51,7 @@ const App = () => {
                 img={iconSource}
                 city={weather.name}
                 weather={Math.round(weather.main.temp)}
-                description={weather.weather[0].main}
+                description={weather.weather[0].description}
               />
             </div>
           )}

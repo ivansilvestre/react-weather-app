@@ -6,8 +6,8 @@ const Card = (props) => {
     <div className="card shadow-lg rounded">
       <MainCard
         img={props.img}
-        mainCity={props.mainCity}
-        mainWeather={props.mainWeather}
+        city={props.city}
+        weather={props.weather}
         description={props.description}
       />
     </div>
