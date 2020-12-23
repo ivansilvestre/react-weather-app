@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InputBox from "./components/InputBox";
 import SearchButton from "./components/SearchButton";
-import Card from "./components/card/Card";
+import Card from "./components/Card";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -22,7 +22,6 @@ const App = () => {
             );
           } else {
             const icon = result.weather[0].icon;
-            console.log(result);
             setWeather(result);
             setQuery("");
             setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
@@ -37,7 +36,7 @@ const App = () => {
     <main>
       <div className="container" style={{ maxWidth: "600px" }}>
         <div className="d-flex flex-column">
-          <h1 className="text-center text-muted my-4">Weather App</h1>
+          <h1 className="text-center text-muted my-4">Weather</h1>
           <div className="text-center text-muted my-4 mx-auto">
             <InputBox
               type="text"
@@ -52,8 +51,10 @@ const App = () => {
               <Card
                 img={iconSource}
                 city={weather.name}
+                country={weather.sys.country}
                 weather={Math.round(weather.main.temp)}
-                description={weather.weather[0].description}
+                maxTemp={Math.round(weather.main.temp_max)}
+                minTemp={Math.round(weather.main.temp_min)}
               />
             </div>
           )}
