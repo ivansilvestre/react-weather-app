@@ -8,12 +8,7 @@ const Card = (props) => {
         <h5 className="my-2">
           {props.city}, {props.country}{" "}
         </h5>
-        <div className="display-4 my-3">{props.weather}&deg;C</div>
-        <div className="display-4 my-3" style={{ fontSize: "10px" }}>
-          <span className="text-lowercase">min: </span>
-          {props.minTemp}&deg;C | <span className="text-lowercase">max: </span>
-          {props.maxTemp}&deg;C
-        </div>
+        <div className="display-4 my-2">{props.weather}&deg;C</div>
       </div>
     </div>
   );

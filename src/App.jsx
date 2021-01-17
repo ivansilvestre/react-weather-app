@@ -53,8 +53,6 @@ const App = () => {
                 city={weather.name}
                 country={weather.sys.country}
                 weather={Math.round(weather.main.temp)}
-                maxTemp={Math.round(weather.main.temp_max)}
-                minTemp={Math.round(weather.main.temp_min)}
               />
             </div>
           )}
