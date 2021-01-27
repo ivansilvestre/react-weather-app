@@ -35,7 +35,7 @@ const App = () => {
         <div className="d-flex flex-column">
           <h1 className="text-center text-muted my-4">Weather</h1>
           <form onSubmit={handleSubmit}>
-            <div className="text-center text-muted my-4 mx-auto">
+            <div className="text-center text-muted my-4 mx-auto w-50">
               <InputBox
                 type="text"
                 placeholder="City Name"
