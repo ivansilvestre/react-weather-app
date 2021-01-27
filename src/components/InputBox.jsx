@@ -7,6 +7,7 @@ const InputBox = (props) => {
       onChange={props.handleChange}
       value={props.value}
       autoFocus
+      required
     />
   );
 };

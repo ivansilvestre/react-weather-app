@@ -8,28 +8,25 @@ const App = () => {
   const [weather, setWeather] = useState(null);
   const [iconSource, setIconSource] = useState("");
 
-  const search = () => {
-    if (query !== "") {
-      fetch(
-        `${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.cod !== 200) {
-            console.log(`${result.cod} Error`);
-            alert(
-              "Problem out there... try again later or try to insert a valid city!"
-            );
-          } else {
-            const icon = result.weather[0].icon;
-            setWeather(result);
-            setQuery("");
-            setIconSource(`http://openweathermap.org/img/wn/${icon}@2x.png`);
-          }
-        });
-    } else {
-      alert("Please insert some city...");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(
+      `${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.cod !== 200) {
+          alert(
+            "Problem out there... try again later or try to insert a valid city!"
+          );
+        } else {
+          setWeather(result);
+          setQuery("");
+          setIconSource(
+            `http://openweathermap.org/img/wn/${result.weather[0].icon}@2x.png`
+          );
+        }
+      });
   };
 
   return (
@@ -37,15 +34,17 @@ const App = () => {
       <div className="container" style={{ maxWidth: "600px" }}>
         <div className="d-flex flex-column">
           <h1 className="text-center text-muted my-4">Weather</h1>
-          <div className="text-center text-muted my-4 mx-auto">
-            <InputBox
-              type="text"
-              placeholder="City Name"
-              handleChange={(e) => setQuery(e.target.value)}
-              value={query}
-            />
-            <SearchButton onClick={search}>Get Weather</SearchButton>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="text-center text-muted my-4 mx-auto">
+              <InputBox
+                type="text"
+                placeholder="City Name"
+                handleChange={(e) => setQuery(e.target.value)}
+                value={query}
+              />
+              <SearchButton>Get Weather</SearchButton>
+            </div>
+          </form>
           {weather && (
             <div>
               <Card
