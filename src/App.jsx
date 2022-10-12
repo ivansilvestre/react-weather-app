@@ -8,7 +8,7 @@ const App = () => {
   const [weather, setWeather] = useState(null);
   const [iconSource, setIconSource] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     fetch(
       `${import.meta.env.VITE_API_URL}?q=${query}&units=metric&appid=${
@@ -17,7 +17,7 @@ const App = () => {
     )
       .then((res) => res.json())
       .then((result) => {
-        if (result.cod !== 200) {
+        if (!result.cod !== 200) {
           alert(
             "Problem out there... try again later or try to insert a valid city!"
           );
@@ -36,17 +36,17 @@ const App = () => {
       <div className="container" style={{ maxWidth: "600px" }}>
         <div className="d-flex flex-column">
           <h1 className="text-center text-muted my-4">Weather</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="text-center text-muted my-4 mx-auto w-50">
-              <InputBox
-                type="text"
-                placeholder="City Name"
-                handleChange={(e) => setQuery(e.target.value)}
-                value={query}
-              />
-              <SearchButton disabled={!query}>Get Weather</SearchButton>
-            </div>
-          </form>
+          <div className="text-center text-muted my-4 mx-auto w-50">
+            <InputBox
+              type="text"
+              placeholder="City Name"
+              handleChange={(e) => setQuery(e.target.value)}
+              value={query}
+            />
+            <SearchButton disabled={!query} onClick={(e) => handleClick(e)}>
+              Get Weather
+            </SearchButton>
+          </div>
           {weather && (
             <div>
               <Card
