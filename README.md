@@ -1,4 +1,4 @@
-## Minimal Weather App with React.
+## Minimal Weather App with React
 
 ### App here:
 
