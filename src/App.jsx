@@ -17,7 +17,7 @@ const App = () => {
     )
       .then((res) => res.json())
       .then((result) => {
-        if (!result.cod !== 200) {
+        if (result.cod !== 200) {
           alert(
             "Problem out there... try again later or try to insert a valid city!"
           );
