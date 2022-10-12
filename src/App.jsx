@@ -1,7 +1,7 @@
 import { useState } from "react";
+import Card from "./components/Card";
 import InputBox from "./components/InputBox";
 import SearchButton from "./components/SearchButton";
-import Card from "./components/Card";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -11,7 +11,9 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(
-      `${process.env.REACT_APP_API_URL}?q=${query}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+      `${import.meta.env.VITE_API_URL}?q=${query}&units=metric&appid=${
+        import.meta.env.VITE_API_KEY
+      }`
     )
       .then((res) => res.json())
       .then((result) => {
