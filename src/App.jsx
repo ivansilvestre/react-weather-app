@@ -44,7 +44,7 @@ const App = () => {
                 handleChange={(e) => setQuery(e.target.value)}
                 value={query}
               />
-              <SearchButton>Get Weather</SearchButton>
+              <SearchButton disabled={!query}>Get Weather</SearchButton>
             </div>
           </form>
           {weather && (
