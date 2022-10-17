@@ -6,7 +6,7 @@ const Card = (props) => {
       </div>
       <div className="text-muted text-uppercase text-center details">
         <h5 className="my-2">
-          {props.city}, {props.country}{" "}
+          {props.city}, {props.country}
         </h5>
         <div className="display-4 my-2">{props.weather}&deg;C</div>
       </div>

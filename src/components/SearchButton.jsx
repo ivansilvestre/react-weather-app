@@ -2,9 +2,9 @@ import Button from "react-bootstrap/Button";
 
 const SearchButton = (props) => (
   <Button
+    {...props}
     variant="primary"
     onClick={props.onClick}
-    {...props}
     type="submit"
     className="my-2"
   />
