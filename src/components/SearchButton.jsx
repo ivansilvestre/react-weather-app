@@ -5,7 +5,8 @@ const SearchButton = (props) => (
     variant="primary"
     onClick={props.onClick}
     {...props}
-    disabled={props.disabled}
+    type="submit"
+    className="my-2"
   />
 );
 

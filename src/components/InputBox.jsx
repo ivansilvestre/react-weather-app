@@ -1,16 +1,17 @@
+import { forwardRef } from "react";
 import Form from "react-bootstrap/Form";
 
-const InputBox = (props) => {
+const InputBox = forwardRef((props, ref) => {
   return (
     <Form.Control
-      type={props.type}
-      placeholder={props.placeholder}
+      type="text"
+      placeholder={"City Name"}
       className="p-4 my-2"
-      onChange={props.handleChange}
-      value={props.value}
       autoFocus
+      ref={ref}
+      required
     />
   );
-};
+});
 
 export default InputBox;
